@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+@theme {
+    --font-sans: "Space Grotesk", sans-serif;
+    --color-background: #0B1120;
+    --color-ink-primary: #F8FAFC;
+    --color-brand: #2563EB ;
+    --color-ink-secondary: #CBD5E1;
+    --color-surface: #151E30;
+    --color-surface-elevated: #1E293B;
+    --color-primary: #1D4ED8;
+    --color-primary-hover: #1E40AF;
+    --color-accent: #93C5FD;
+    
+}
