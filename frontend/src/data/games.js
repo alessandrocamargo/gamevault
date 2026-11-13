@@ -1,4 +1,4 @@
-export const featuredGames = [
+export const games = [
     {
     id: 1,
     title: "Elden Ring",
@@ -26,5 +26,18 @@ export const featuredGames = [
     cover: "/images/zelda-tears-of-the-kingdom.jpg",
     description: "Sequência direta de The Legend of Zelda: Breath of the Wild (2017) e acompanha Link enquanto ele explora o reino de Hyrule, busca por Princesa Zelda e tenta impedir o retorno e a destruição causada por Ganondorf."
   },
+  {
+    id: 4,
+    title: "Cyberpunk 2077",
+    slug: "cyberpunk-2077",
+    platforms: ["PC", "PlayStation 5" , "Xbox Series X|S"],
+    genre: "RPG",
+    cover: "/images/cyberpunk-2077.jpg",
+    description: "Cyberpunk 2077 é um RPG de ação em mundo aberto ambientado em Night City, uma metrópole futurista dominada por tecnologia e megacorporações."
+  },
 ];
+
+export const featuredGames = games.filter((game) => {
+  return [1,2,3].includes(game.id)
+})
 

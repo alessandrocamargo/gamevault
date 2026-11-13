@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { featuredGames } from "../data/games"
+import { games } from "../data/games"
 import GameCard from "../components/GameCard"
 
 export default function GamesPage(){
@@ -21,7 +21,7 @@ export default function GamesPage(){
     }
 
     //Filtros
-    const filteredGames = featuredGames.filter((game) => {
+    const filteredGames = games.filter((game) => {
         const matchesGenre = genre === "" || game.genre === genre
         const matchesSearch = game.title.toLocaleLowerCase().includes(search.toLocaleLowerCase())
         const matchesPlatform = platform === "" || game.platforms.includes(platform)

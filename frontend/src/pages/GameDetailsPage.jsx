@@ -1,12 +1,12 @@
 import { useParams, Link } from "react-router"
-import { featuredGames } from "../data/games"
+import { games } from "../data/games"
 import NotFoundPage from "./NotFoundPage"
 
 
 export default function GameDetailsPage() {
 
     const { slug } = useParams()
-    const game = featuredGames.find((item) => {
+    const game = games.find((item) => {
         return item.slug === slug
     })
 
