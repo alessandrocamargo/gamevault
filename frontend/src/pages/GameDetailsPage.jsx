@@ -1,14 +1,56 @@
 import { useParams, Link } from "react-router"
-import { games } from "../data/games"
 import NotFoundPage from "./NotFoundPage"
-
+import { useState, useEffect } from "react"
+import { getGameBySlug } from "../services/gameService"
+import Loading from "../components/Loading"
+import ErrorMessage from "../components/ErrorMessage"
 
 export default function GameDetailsPage() {
 
     const { slug } = useParams()
-    const game = games.find((item) => {
-        return item.slug === slug
-    })
+
+
+    const [game,setGame] = useState(null)
+    const [isLoading, setIsLoading] = useState(true)
+    const [error, setError] = useState(null)
+
+
+    useEffect(() => {
+            let ignore = false
+            async function loadDetails() {
+                setIsLoading(true)
+                setError(null)
+                setGame(null)
+                try {
+                    const result = await getGameBySlug(slug)
+                    console.log(result)
+                    if(!ignore){
+                        setGame(result)
+                    }
+                } catch (err) {
+                    if(!ignore){
+                        setError("Algum Cheater bagunçou os dados. Tente novamente mais tarde")
+                    }
+                } finally {
+                    if(!ignore){
+                        setIsLoading(false)
+                    }
+                }
+            }
+            loadDetails()
+            return () => {
+                ignore = true
+            }
+        }, [slug])
+
+
+    if(isLoading) {
+        return <Loading />
+    }
+
+    if (error) {
+        return <ErrorMessage message={error} />
+    }
 
     if (!game) {
         return <NotFoundPage />
