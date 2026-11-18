@@ -6,7 +6,10 @@ const router = Router()
 
 router.get("/", async (req, res) => {
     try{
-        const data = await getGamesFromRawg()
+        const search = req.query.search
+        console.log("Pesquisa recebida:", search)
+        const data = await getGamesFromRawg(search)
+        console.log("Pesquisa recebida no serviço:", search)
         res.json(data) 
     }catch (err){
         res.status(502).json({
