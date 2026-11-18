@@ -1,9 +1,12 @@
 const RAWG_API_KEY = process.env.RAWG_API_KEY;
 
-export async function getGamesFromRawg(search) {
+export async function getGamesFromRawg(search, ordering = null) {
     let url = `https://api.rawg.io/api/games?key=${RAWG_API_KEY}`
     if(search){
         url += `&search=${encodeURIComponent(search)}`
+    }
+    if(ordering){
+        url += `&ordering=${encodeURIComponent(ordering)}`
     }
     const response = await fetch(url) 
     if(!response.ok) {

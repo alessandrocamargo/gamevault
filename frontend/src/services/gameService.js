@@ -1,7 +1,11 @@
 import { games, featuredGames } from "../data/games"
 
-export async function getGames() {
-   const response = await fetch("/api/games")
+export async function getGames(ordering = null) {
+   let url = "/api/games"
+   if(ordering){
+    url += `?ordering=${encodeURIComponent(ordering)}`
+   }
+   const response = await fetch(url)
    const data = await response.json()
 
    const normalizedGames = data.results.map((game) => {

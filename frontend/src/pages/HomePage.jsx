@@ -1,7 +1,7 @@
 import HeroSection from "../components/HeroSection"
 import GameCard from "../components/GameCard"
 import { useState, useEffect } from "react"
-import { getFeaturedGames } from "../services/gameService"
+import { getGames } from "../services/gameService"
 import Loading from "../components/Loading"
 import ErrorMessage from "../components/ErrorMessage"
 
@@ -14,9 +14,10 @@ export default function HomePage() {
     useEffect(() => {
         async function loadFeaturedGames() {
             try {
-                const result = await getFeaturedGames()
-                console.log(result)
-                setFeaturedGames(result)
+                const result = await getGames("-added")
+                const featuredGames = result.slice(0,6)
+                setFeaturedGames(featuredGames)
+
             } catch (err) {
                 setError("Desculpe mais o noob bangunçou tudo aqui e estamos arrumando. Tente novamente mais tarde")
             } finally {
