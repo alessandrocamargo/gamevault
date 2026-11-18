@@ -23,7 +23,6 @@ export default function GameDetailsPage() {
                 setGame(null)
                 try {
                     const result = await getGameBySlug(slug)
-                    console.log(result)
                     if(!ignore){
                         setGame(result)
                     }

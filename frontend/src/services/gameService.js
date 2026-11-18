@@ -1,22 +1,48 @@
 import { games, featuredGames } from "../data/games"
 
-export function getGames() {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve(games)
-        },2000)
-    })
+export async function getGames() {
+   const response = await fetch("/api/games")
+   const data = await response.json()
+
+   const normalizedGames = data.results.map((game) => {
+    return {
+        id: game.id,
+        title: game.name,
+        slug: game.slug,
+        cover: game.background_image,
+        genre: game.genres?.[0]?.name ?? "Não informado",
+        platforms: (game.platforms ?? []).map((item) => {
+            return item.platform.name
+        })
+    }
+   })
+   
+
+
+   return normalizedGames
 }
 
-export function getGameBySlug(slug) {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            const game = games.find((item) => {
-                return item.slug === slug
-            })
-            resolve(game)
-        }, 2000)
-    })
+export async function getGameBySlug(slug) {
+    const response = await fetch(`/api/games/${encodeURIComponent(slug)}`)
+    if(!response.ok){
+        if(response.status === 404){
+            return null
+        }
+        else{
+            throw new Error("Erro ao consultar os detalhes do jogo")
+        }
+    }
+    const data = await response.json()
+    const normalizedGame = {
+        title: data.name,
+        cover: data.background_image,
+        description: data.description_raw,
+        genre: data.genres?.[0]?.name ?? "Não informado",
+        platforms: (data.platforms ?? []).map((item) => {
+            return item.platform.name
+        })
+    }
+    return normalizedGame
 }
 
 export function getFeaturedGames(){
